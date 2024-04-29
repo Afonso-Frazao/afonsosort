@@ -47,13 +47,11 @@ int main(int argc, char **argv){
 
 	sscanf(lbuff, "%ld", &insn);
 
-	printf("ins: %ld\n", insn);
-
 	fclose(fp);
 
-	fp2=fopen(argv[2], "a");
+	fp2=fopen(argv[1], "a");
 
-	fprintf(fp, "%s: %ld\n", argv[1], insn);
+	fprintf(fp, "%ld, ", insn);
 
 	return 0;
 }
