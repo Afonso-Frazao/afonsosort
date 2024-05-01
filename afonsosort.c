@@ -9,8 +9,8 @@ struct numbers {
 int main(int argc, char **argv) {
   int i, j, k, N, size, aux, increment, hashtablesize;
   int *arr;
-  FILE *fp, *fp2, *fp3;
-  struct numbers *arr2, *arr3, tmp2;
+  FILE *fp, *fp2;
+  struct numbers *arr2, *arr3, tmp;
 
   fp = fopen("numers.txt", "r");
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
   // printf("Hashing with size %d and increment %d\n", size, increment);
 
   hashtablesize = 0;
-  for (i = 0; i < N; i++) { // hashing time
+  for (i = 0; i < size; i++) { // hashing time
     aux = arr[i] % N;
     if (arr2[aux].number == arr[i]) {
       arr2[aux].occurences++;
@@ -89,14 +89,14 @@ int main(int argc, char **argv) {
   free(arr2);
 
   for (i = 1; i < hashtablesize; i++) { // insertion sort
-    for (j = i - 1, k = i, tmp2 = arr3[i]; j >= 0; k = j, j--) {
-      if (arr3[j].number > tmp2.number) {
+    for (j = i - 1, k = i, tmp = arr3[i]; j >= 0; k = j, j--) {
+      if (arr3[j].number > tmp.number) {
         arr3[k] = arr3[j];
       } else {
         break;
       }
     }
-    arr3[k] = tmp2;
+    arr3[k] = tmp;
   }
 
   for (i = 0, k = 0; i < hashtablesize; i++) { // write back the sorted array
@@ -108,11 +108,12 @@ int main(int argc, char **argv) {
 
   free(arr3);
 
-  fp2 = fopen("ordered_numers.txt", "w");
+  fp2 = fopen("ordered_numers.txt", "w+");
 
-  for (i = 0; i < N; i++) {
+  for (i = 0; i < size; i++) {
     fprintf(fp2, "%d ", arr[i]);
   }
+  fprintf(fp, "\n");
 
   fclose(fp2);
   free(arr);
